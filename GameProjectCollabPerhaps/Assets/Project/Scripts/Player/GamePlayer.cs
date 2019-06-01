@@ -35,7 +35,7 @@ public class GamePlayer : MonoBehaviour
 
     void Start()
     {
-        /*
+        
         if (pmc == null)
         {
             pmc = transform.GetComponentInChildren<PlayermodelController>();
@@ -50,15 +50,19 @@ public class GamePlayer : MonoBehaviour
         {
             cam = pmc.playerCam;
         }
-        */
+
+        ItemBase cz = ItemBase.GetItem("CZ");
+        cz = cz.CreateItem(Vector3.zero);
+
+        EquipItem((Equippable)cz);
+        Debug.Log("Created CZ");
     }
-    /*
+    
     public void EquipItem(Equippable item)
     {
-        Equippable.SetSocket(item, pmc.rightSocket);
-        item.OnEquipped();
+        Equippable.SetSocket(item, pmc.rightHandSocket);
     }
-    */
+    
     private void Update()
     {
 

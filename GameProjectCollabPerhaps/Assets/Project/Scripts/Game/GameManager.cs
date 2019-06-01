@@ -23,5 +23,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Initialize item database
+        ItemBase[] found = Resources.FindObjectsOfTypeAll<ItemBase>();
+        ItemBase.BuildItemDictionary(found);
     }
 }
