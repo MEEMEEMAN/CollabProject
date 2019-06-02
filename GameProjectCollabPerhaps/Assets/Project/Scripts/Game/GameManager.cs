@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class for managing the client.
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     /// Signleton pattern for GameManager.
     /// </summary>
     public static GameManager instance;
+    public TextMeshProUGUI ui;
 
     void Awake()
     {
@@ -24,8 +27,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        ItemBase.BuildItemDictionary();
+    }
+
+    void Start()
+    {
         // Initialize item database
-        ItemBase[] found = Resources.FindObjectsOfTypeAll<ItemBase>();
-        ItemBase.BuildItemDictionary(found);
+        
+    }
+
+    void OnApplicationQuit()
+    {
+        //ItemBase.ItemDatabase = new Dictionary<string, ItemBase>();
     }
 }

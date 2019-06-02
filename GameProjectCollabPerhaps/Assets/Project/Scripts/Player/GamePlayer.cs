@@ -51,11 +51,12 @@ public class GamePlayer : MonoBehaviour
             cam = pmc.playerCam;
         }
 
-        ItemBase cz = ItemBase.GetItem("CZ");
-        cz = cz.CreateItem(Vector3.zero);
+        Equippable item = ItemBase.GetItem("CZ") as Equippable;
+        EquipItem(item);
 
-        EquipItem((Equippable)cz);
-        Debug.Log("Created CZ");
+        ItemBase ball = ItemBase.GetItem("Ball"); //Will initialize and spawn the ball at 0,0,0 global coords.
+
+        Debug.Log("Equipped "+ item.identifierName);
     }
     
     public void EquipItem(Equippable item)

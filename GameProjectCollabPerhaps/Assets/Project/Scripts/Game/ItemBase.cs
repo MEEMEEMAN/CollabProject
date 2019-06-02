@@ -1,48 +1,68 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using System.IO;
+
+[System.Serializable]
+public class ItemImportData
+{
+    public string nameIdentifier;
+    public string resourcePath;
+}
 
 /// <summary>
 /// Base class for all of the game's items.
 /// </summary>
 public class ItemBase : MonoBehaviour
 {
+    [System.Serializable]
+    public struct ItemPath
+    {
+        public string itemIdentifier;
+        public string resourcesPath;
+    }
+
+    [System.Serializable]
+    public struct ItemPathSerial
+    {
+        public ItemPath[] data;
+    }
+
     /// <summary>
     /// Main item database.
     /// </summary>
     public static Dictionary<string, ItemBase> ItemDatabase = new Dictionary<string, ItemBase>();
 
-    /// <summary>
-    /// Identifies whether found item is a scene item or an asset item.
-    /// we need to only add asset gameobject items to the list.
-    /// this function ensures only asset gameobjects get added to the ItemDatabase Dictionary.
-    /// </summary>
-    /// <param name="items"></param>
-    public static void BuildItemDictionary(ItemBase[] items)
+    public static void BuildItemDictionary()
     {
-        ItemDatabase.Clear();
-
-        for (int i = 0; i < items.Length; i++)
+        ItemPathSerial itemDataCollection = new ItemPathSerial();
+        try
         {
-            ItemBase item = items[i];
-            if (AssetDatabase.GetAssetPath(item.GetInstanceID()) == "")
-            {
-                Debug.Log(items[i].transform.name + " is a scene item.");
-            }
-            else
-            {
-                ItemDatabase.Add(item.identifierName, item);
-                Debug.Log("Added " + item.identifierName + " To the item database.");
-            }
+            string itemPathJson = CustomTextService.ReadJsonFromResources("JsonData/ItemPathData/itempaths");
+            itemDataCollection = CustomTextService.DeSerializeJson<ItemPathSerial>(itemPathJson);
         }
-    }
+        catch
+        {
+            Debug.LogError("File doesnt exist?");
+        }
 
+        ItemDatabase = new Dictionary<string, ItemBase>();
+        foreach (ItemPath item in itemDataCollection.data)
+        {
+            ItemBase i = (Resources.Load(item.resourcesPath) as GameObject).GetComponent<ItemBase>();
+            ItemDatabase.Add(item.itemIdentifier, i);
+        }
+        Debug.Log("Item Database was built successfully.");
+    }
+    
     public static ItemBase GetItem(string itemName)
     {
         ItemBase item;
         ItemDatabase.TryGetValue(itemName, out item);
-        return item;
+        GameObject instance = Instantiate(item.gameObject);
+        Debug.Log(instance.transform.position);
+
+        return instance.GetComponent<ItemBase>();
     }
 
     public static List<string> GetKeys()
@@ -51,7 +71,7 @@ public class ItemBase : MonoBehaviour
         return keyList;
     }
 
-    public ItemBase CreateItem(Vector3 pos)
+    public ItemBase Create(Vector3 pos)
     {
         GameObject instance = Instantiate(gameObject, pos, Quaternion.identity);
 
