@@ -1274,7 +1274,7 @@ MonoBehaviour:
   Playermodel: {fileID: 1808929298512738783}
   animController: {fileID: 9100000, guid: 94e24ed1a9bf204449101a76249ffbb3, type: 2}
   playerCam: {fileID: 1223508390}
-  rightHandSocket: {fileID: 5297737205145654108}
+  rightSocketTransform: {fileID: 5297737205145654108}
 --- !u!1 &2110753197
 GameObject:
   m_ObjectHideFlags: 0

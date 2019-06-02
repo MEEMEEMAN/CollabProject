@@ -15,6 +15,9 @@ public class ItemImportData
 /// </summary>
 public class ItemBase : MonoBehaviour
 {
+    public string identifierName;
+    bool instantiated = false;
+
     [System.Serializable]
     public struct ItemPath
     {
@@ -33,36 +36,46 @@ public class ItemBase : MonoBehaviour
     /// </summary>
     public static Dictionary<string, ItemBase> ItemDatabase = new Dictionary<string, ItemBase>();
 
+    /// <summary>
+    /// Function used by the GameManager to initialize the client's item database.
+    /// </summary>
     public static void BuildItemDictionary()
     {
         ItemPathSerial itemDataCollection = new ItemPathSerial();
         try
         {
-            string itemPathJson = CustomTextService.ReadJsonFromResources("JsonData/ItemPathData/itempaths");
-            itemDataCollection = CustomTextService.DeSerializeJson<ItemPathSerial>(itemPathJson);
+            string itemPathJson = CustomTextService.ReadJsonFromResources("JsonData/ItemPathData/itempaths"); //Take all of the item's filepath json file and convert to string
+            itemDataCollection = CustomTextService.DeSerializeJson<ItemPathSerial>(itemPathJson); //DeSerialize the json
         }
         catch
         {
             Debug.LogError("File doesnt exist?");
         }
 
-        ItemDatabase = new Dictionary<string, ItemBase>();
+        ItemDatabase = new Dictionary<string, ItemBase>(); // Initialize the ItemDatabase Dictionary
         foreach (ItemPath item in itemDataCollection.data)
         {
-            ItemBase i = (Resources.Load(item.resourcesPath) as GameObject).GetComponent<ItemBase>();
-            ItemDatabase.Add(item.itemIdentifier, i);
+            ItemBase itembs = (Resources.Load(item.resourcesPath) as GameObject).GetComponent<ItemBase>(); //as simple as it gets
+            ItemDatabase.Add(item.itemIdentifier, itembs);
         }
         Debug.Log("Item Database was built successfully.");
     }
     
+    /// <summary>
+    /// The most basic command for getting an item. will return null if there is an error
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
     public static ItemBase GetItem(string itemName)
     {
-        ItemBase item;
+        ItemBase item = null;
         ItemDatabase.TryGetValue(itemName, out item);
         GameObject instance = Instantiate(item.gameObject);
-        Debug.Log(instance.transform.position);
+        item = instance.GetComponent<ItemBase>();
 
-        return instance.GetComponent<ItemBase>();
+        Debug.Log("Creating " + item.identifierName);
+
+        return item;
     }
 
     public static List<string> GetKeys()
@@ -74,10 +87,18 @@ public class ItemBase : MonoBehaviour
     public ItemBase Create(Vector3 pos)
     {
         GameObject instance = Instantiate(gameObject, pos, Quaternion.identity);
+        instantiated = true;
 
         return instance.GetComponent<ItemBase>();
     }
 
+    public bool isInstantiated()
+    {
+        return instantiated;
+    }
 
-    public string identifierName;
+    public void DestroyItem()
+    {
+        Destroy(gameObject);
+    }
 }

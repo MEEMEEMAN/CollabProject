@@ -53,15 +53,20 @@ public class GamePlayer : MonoBehaviour
 
         Equippable item = ItemBase.GetItem("CZ") as Equippable;
         EquipItem(item);
+        Equippable.CreateInHands(this, ItemBase.GetItem("CZ") as Equippable);
 
         ItemBase ball = ItemBase.GetItem("Ball"); //Will initialize and spawn the ball at 0,0,0 global coords.
-
-        Debug.Log("Equipped "+ item.identifierName);
     }
     
-    public void EquipItem(Equippable item)
+    
+    public bool EquipItem(Equippable item)
     {
-        Equippable.SetSocket(item, pmc.rightHandSocket);
+        return pmc.rightHand.EquipItem(item);
+    }
+
+    public void DequipItem()
+    {
+        pmc.rightHand.DequipItem();
     }
     
     private void Update()

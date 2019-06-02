@@ -1,6 +1,73 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+[System.Serializable]
+public class HandSocket
+{
+    public Transform this[int index] { get { return socketTransform; } set { socketTransform = value; } }
+    Transform socketTransform;
+    Equippable currentOccupyingItem = null;
+    bool occupied = false;
+
+    public HandSocket()
+    {
+        
+    }
+
+    public HandSocket(Transform socket)
+    {
+        socketTransform = socket;
+    }
+
+    public Transform getSocket()
+    {
+        return socketTransform;
+    }
+
+    /// <summary>
+    /// Tries to equip item, wont equip if another item is currently equipped, hence will return false.
+    /// </summary>
+    /// <param name="itemToEquip"></param>
+    /// <returns></returns>
+    public bool EquipItem(Equippable itemToEquip)
+    {
+        if (currentOccupyingItem == null && !occupied)
+        {
+            Equippable.ParentToSocket(itemToEquip, socketTransform);
+            occupied = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool DequipItem()
+    {
+        if(currentOccupyingItem == null && !occupied)
+        {
+            return false;
+        }
+        else
+        {
+            occupied = false;
+            currentOccupyingItem.equipped = false;
+            currentOccupyingItem.DestroyItem(); //no inventory system yet, we destroy the item sadly.
+            currentOccupyingItem = null;
+            return true;
+        }
+    }
+
+    public Equippable getCurretOcuppying()
+    {
+        return currentOccupyingItem;
+    }
+
+    public bool isOccupied()
+    {
+        return occupied;
+    }
+}
 
 
 public class PlayermodelController : MonoBehaviour
@@ -9,7 +76,8 @@ public class PlayermodelController : MonoBehaviour
     public GameObject Playermodel;
     public RuntimeAnimatorController animController;
     public QuatCamController playerCam;
-    public Transform rightHandSocket;
+    public Transform rightSocketTransform;
+    [HideInInspector]public HandSocket rightHand;
 
     GamePlayer gp;
     PlayerController pc;
@@ -18,6 +86,11 @@ public class PlayermodelController : MonoBehaviour
     float animLerpFactor = 5f;
     Vector2 camEuler;
     CustomInputManager input = new CustomInputManager();
+
+    void Awake()
+    {
+        rightHand = new HandSocket(rightSocketTransform);
+    }
 
     private void Start()
     {
@@ -116,7 +189,7 @@ public class PlayermodelController : MonoBehaviour
         }
 
         animator.SetLayerWeight(2, blend);
-        //animator.SetLayerWeight(3, blend);
+        animator.SetLayerWeight(3, blend);
         animator.SetFloat("pitch", pitch);
     }
     
