@@ -365,6 +365,7 @@ MonoBehaviour:
     localRotation: {x: 0.50001454, y: 0.4999943, z: 0.4999946, w: 0.49999663}
     localScale: {x: 0.14285715, y: 0.14285721, z: 0.14285715}
   playermodelOverrideAnims: {fileID: 0}
+  equipmentLayer: 4
 --- !u!54 &3630984859758791654
 Rigidbody:
   m_ObjectHideFlags: 0

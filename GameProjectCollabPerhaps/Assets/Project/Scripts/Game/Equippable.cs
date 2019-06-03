@@ -10,9 +10,10 @@ public struct OffsetData
     public Vector3 localScale;
 }
 
+[System.Serializable]
 public enum EquipLayer
 {
-    
+    FISTS = 3, PISTOL, RIFLE,
 }
 
 /// <summary>
@@ -24,6 +25,7 @@ public class Equippable : ItemBase
     public RuntimeAnimatorController animController;
     public OffsetData offsetData;
     public AnimatorOverrideController playermodelOverrideAnims;
+    public EquipLayer equipmentLayer;
 
     /// <summary>
     /// Fetch equippable reference from the database. ONLY REFERENCE, NO INSTANTIATION

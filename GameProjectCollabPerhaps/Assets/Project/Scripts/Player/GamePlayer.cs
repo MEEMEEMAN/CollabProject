@@ -59,6 +59,7 @@ public class PlayerInventory
             currentlyEquipped.colliders.gameObject.SetActive(false);
             currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
         }
+        boundPlayer.SetEquipLayer(currentlyEquipped.equipmentLayer);
     }
 }
 
@@ -96,8 +97,8 @@ public class GamePlayer : MonoBehaviour
         }
         inventory = new PlayerInventory(this, pmc.rightHand);
 
-        ItemBase item = ItemBase.GetItem("CZ").Create();
-        inventory.MoveToHands(item as Equippable);
+        //ItemBase item = ItemBase.GetItem("CZ").Create();
+        //inventory.MoveToHands(item as Equippable);
 
         
     }
@@ -125,5 +126,10 @@ public class GamePlayer : MonoBehaviour
     public HandSocket getRightHandSocket()
     {
         return pmc.rightHand;
+    }
+
+    public void SetEquipLayer(EquipLayer layer)
+    {
+        pmc.currentEquipLayer = layer;
     }
 }

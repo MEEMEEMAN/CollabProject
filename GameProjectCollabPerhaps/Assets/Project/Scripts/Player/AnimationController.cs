@@ -8,11 +8,6 @@ public class HandSocket
     Equippable currentOccupyingItem = null;
     bool occupied = false;
 
-    public HandSocket()
-    {
-        
-    }
-
     public HandSocket(Transform socket)
     {
         socketTransform = socket;
@@ -64,6 +59,7 @@ public class AnimationController : MonoBehaviour
     public QuatCamController playerCam;
     public Transform rightSocketTransform;
     [HideInInspector]public HandSocket rightHand;
+    public EquipLayer currentEquipLayer = EquipLayer.FISTS;
 
     GamePlayer gp;
     PlayerController pc;
@@ -76,6 +72,7 @@ public class AnimationController : MonoBehaviour
     void Awake()
     {
         rightHand = new HandSocket(rightSocketTransform);
+        currentEquipLayer = EquipLayer.FISTS;
     }
 
     private void Start()
@@ -166,6 +163,7 @@ public class AnimationController : MonoBehaviour
                 break;
             case ActionQuery.Stance.OFFENSIVE:
                 blend = Mathf.Lerp(blend, 1f, animLerpFactor * Time.deltaTime);
+                ManageEquipLayer();
                 OffensiveStance();
                 break;
             case ActionQuery.Stance.ANIMATED:
@@ -178,6 +176,22 @@ public class AnimationController : MonoBehaviour
         animator.SetLayerWeight(3, blend);
         animator.SetFloat("pitch", pitch);
     }
+
+    void ManageEquipLayer()
+    {
+        switch (currentEquipLayer)
+        {
+            case EquipLayer.FISTS:
+                Punch();
+                break;
+            case EquipLayer.PISTOL:
+                break;
+            case EquipLayer.RIFLE:
+                break;
+            default:
+                break;
+        }
+    }
     
     void ChillStance()
     {
@@ -187,25 +201,25 @@ public class AnimationController : MonoBehaviour
 
     void OffensiveStance()
     {
-        Punch();
+
     }
 
+    int fist = 0;
     void Punch()
     {
-        if(Input.GetMouseButton(1))
-        {
-            animator.SetBool("ads", true);
-            playerCam.camComponent.fieldOfView = 40;
-        }
-        else
-        {
-            playerCam.camComponent.fieldOfView = 80;
-            animator.SetBool("ads", false);
-        }
-
         if(Input.GetMouseButtonDown(0))
-        {
-            animator.SetTrigger("attack");
+        { 
+            Debug.Log(fist);
+            if (fist == 0)
+            {
+                fist++;
+                animator.SetTrigger("PUNCH_R");
+            }
+            else if(fist == 1)
+            {
+                fist--;
+                animator.SetTrigger("PUNCH_L");
+            }
         }
     }
 }
