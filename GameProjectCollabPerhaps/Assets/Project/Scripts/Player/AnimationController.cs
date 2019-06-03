@@ -23,23 +23,9 @@ public class HandSocket
         return socketTransform;
     }
 
-    /// <summary>
-    /// Tries to equip item, wont equip if another item is currently equipped, hence will return false.
-    /// </summary>
-    /// <param name="itemToEquip"></param>
-    /// <returns></returns>
-    public bool EquipItem(Equippable itemToEquip)
+    public Transform getTransform()
     {
-        if (currentOccupyingItem == null && !occupied)
-        {
-            Equippable.ParentToSocket(itemToEquip, socketTransform);
-            occupied = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return socketTransform;
     }
 
     public bool DequipItem()
@@ -70,7 +56,7 @@ public class HandSocket
 }
 
 
-public class PlayermodelController : MonoBehaviour
+public class AnimationController : MonoBehaviour
 {
     [Header("Setup")]
     public GameObject Playermodel;

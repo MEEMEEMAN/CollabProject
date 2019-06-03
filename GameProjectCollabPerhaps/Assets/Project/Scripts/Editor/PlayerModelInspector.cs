@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-[CustomEditor(typeof(PlayermodelController))]
+[CustomEditor(typeof(AnimationController))]
 public class PlayerModelInspector : Editor
 {
-    PlayermodelController comp;
+    AnimationController comp;
 
     private void OnEnable()
     {
-        comp = (PlayermodelController)target;
+        comp = (AnimationController)target;
     }
 
     public override void OnInspectorGUI()

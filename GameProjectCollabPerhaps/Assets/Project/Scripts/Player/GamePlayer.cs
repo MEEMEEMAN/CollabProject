@@ -23,22 +23,66 @@ public class ActionQuery
 [System.Serializable]
 public class PlayerInventory
 {
+    GamePlayer boundPlayer;
+    HandSocket boundSocket;
+    public Equippable currentlyEquipped;
 
+   public PlayerInventory(GamePlayer player, HandSocket value)
+   {
+        boundPlayer = player;
+        boundSocket = value;
+   }
+
+   public bool MoveToHands(Equippable equipment)
+   {
+        if(currentlyEquipped == null)
+        {
+            currentlyEquipped = equipment;
+            EquippedToHand();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+   }
+
+   void EquippedToHand()
+   {
+        currentlyEquipped.transform.SetParent(boundSocket.getTransform());
+
+        currentlyEquipped.transform.localPosition = currentlyEquipped.offsetData.localPosition;
+        currentlyEquipped.transform.localRotation = currentlyEquipped.offsetData.localRotation;
+        currentlyEquipped.transform.localScale = currentlyEquipped.offsetData.localScale;
+        if(currentlyEquipped.colliders != null)
+        {
+            currentlyEquipped.colliders.gameObject.SetActive(false);
+            currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
 }
 
 public class GamePlayer : MonoBehaviour
 {
     public ActionQuery query;
-    public PlayermodelController pmc;
-    public PlayerController pc;
-    public QuatCamController cam;
+
+    [Header("Inventory")]
+    [SerializeField]PlayerInventory inventory;
+
+    AnimationController pmc;
+    PlayerController pc;
+    QuatCamController cam;
+
+    void Awake()
+    {
+        
+    }
 
     void Start()
     {
-        
         if (pmc == null)
         {
-            pmc = transform.GetComponentInChildren<PlayermodelController>();
+            pmc = transform.GetComponentInChildren<AnimationController>();
         }
 
         if (pc == null)
@@ -50,27 +94,36 @@ public class GamePlayer : MonoBehaviour
         {
             cam = pmc.playerCam;
         }
+        inventory = new PlayerInventory(this, pmc.rightHand);
 
-        Equippable item = ItemBase.GetItem("CZ") as Equippable;
-        EquipItem(item);
-        Equippable.CreateInHands(this, ItemBase.GetItem("CZ") as Equippable);
+        ItemBase item = ItemBase.GetItem("CZ").Create();
+        inventory.MoveToHands(item as Equippable);
 
-        ItemBase ball = ItemBase.GetItem("Ball"); //Will initialize and spawn the ball at 0,0,0 global coords.
+        
     }
     
-    
-    public bool EquipItem(Equippable item)
+    public PlayerInventory getInventory()
     {
-        return pmc.rightHand.EquipItem(item);
+        return inventory;
     }
 
-    public void DequipItem()
+    public AnimationController getAnimationController()
     {
-        pmc.rightHand.DequipItem();
+        return pmc;
     }
-    
-    private void Update()
-    {
 
+    public QuatCamController getCam()
+    {
+        return cam;
+    }
+
+    public PlayerController getPlayerController()
+    {
+        return pc;
+    }
+
+    public HandSocket getRightHandSocket()
+    {
+        return pmc.rightHand;
     }
 }

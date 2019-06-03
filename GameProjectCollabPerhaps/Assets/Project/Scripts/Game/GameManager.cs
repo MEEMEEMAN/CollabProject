@@ -30,14 +30,4 @@ public class GameManager : MonoBehaviour
         ItemBase.BuildItemDictionary();
     }
 
-    void Start()
-    {
-        // Initialize item database
-        
-    }
-
-    void OnApplicationQuit()
-    {
-        //ItemBase.ItemDatabase = new Dictionary<string, ItemBase>();
-    }
 }

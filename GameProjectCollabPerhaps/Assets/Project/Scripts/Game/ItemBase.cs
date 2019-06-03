@@ -15,8 +15,18 @@ public class ItemImportData
 /// </summary>
 public class ItemBase : MonoBehaviour
 {
+    /// <summary>
+    /// All Items have an ID name. used for getting the said item out of the database.
+    /// </summary>
     public string identifierName;
-    bool instantiated = false;
+
+    /// <summary>
+    /// If no creation coordinates are assigned or the item is created inside of the player's inventory, the object is put into sleep state.
+    /// It's gameobject is disabled.
+    /// </summary>
+    [SerializeField]bool sleepState = true;
+    bool created = false;
+    public Transform colliders;
 
     [System.Serializable]
     public struct ItemPath
@@ -62,7 +72,7 @@ public class ItemBase : MonoBehaviour
     }
     
     /// <summary>
-    /// The most basic command for getting an item. will return null if there is an error
+    /// Fetch item reference from the database. ONLY REFERENCE, NO INSTANTIATION
     /// </summary>
     /// <param name="itemName"></param>
     /// <returns></returns>
@@ -70,11 +80,33 @@ public class ItemBase : MonoBehaviour
     {
         ItemBase item = null;
         ItemDatabase.TryGetValue(itemName, out item);
-        GameObject instance = Instantiate(item.gameObject);
-        item = instance.GetComponent<ItemBase>();
+        return item;
+    }
 
-        Debug.Log("Creating " + item.identifierName);
+    /// <summary>
+    /// Create, spawns it in the 0,0,0 of the world coordinates.
+    /// </summary>
+    /// <returns></returns>
+    ItemBase InstantiateItem()
+    {
+        GameObject instance = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
+        ItemBase itemInstance = instance.GetComponent<ItemBase>();
+        itemInstance.created = true;
+        itemInstance.transform.localScale = new Vector3(1, 1, 1);
+        itemInstance.gameObject.SetActive(true);
 
+        return itemInstance;
+    }
+
+    public ItemBase Create()
+    {
+        return InstantiateItem();
+    }
+
+    public ItemBase Create(Vector3 pos)
+    {
+        ItemBase item = InstantiateItem();
+        item.transform.position = pos;
         return item;
     }
 
@@ -84,19 +116,11 @@ public class ItemBase : MonoBehaviour
         return keyList;
     }
 
-    public ItemBase Create(Vector3 pos)
+    public bool isCreated()
     {
-        GameObject instance = Instantiate(gameObject, pos, Quaternion.identity);
-        instantiated = true;
-
-        return instance.GetComponent<ItemBase>();
+        return created;
     }
-
-    public bool isInstantiated()
-    {
-        return instantiated;
-    }
-
+    
     public void DestroyItem()
     {
         Destroy(gameObject);

@@ -595,7 +595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660010418}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 3.2, z: 11.93}
+  m_LocalPosition: {x: 3, y: 3.82, z: 11.28}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 249493090}
@@ -687,9 +687,6 @@ MonoBehaviour:
     crouching: 0
     VerticalMovement: -1
     HorizontalMovement: -1
-  pmc: {fileID: 1901692855}
-  pc: {fileID: 1901692854}
-  cam: {fileID: 1223508390}
 --- !u!4 &771092626
 Transform:
   m_ObjectHideFlags: 0
