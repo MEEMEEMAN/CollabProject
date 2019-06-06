@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-
 /// <summary>
 /// Class for managing the client.
 /// </summary>
@@ -13,7 +10,7 @@ public class GameManager : MonoBehaviour
     /// Signleton pattern for GameManager.
     /// </summary>
     public static GameManager instance;
-    public TextMeshProUGUI ui;
+    [SerializeField] UIManager uim;
 
     void Awake()
     {
@@ -21,13 +18,24 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            ItemBase.BuildItemDictionary();
+            QualitySettings.vSyncCount = 1;
         }
         else
         {
             Destroy(gameObject);
         }
 
-        ItemBase.BuildItemDictionary();
+    }
+
+    void Update()
+    {
+        uim.fpsCounter.text = string.Format("FPS: {0:0}", 1 / Time.deltaTime);
+    }
+
+    public UIManager GetUIManager()
+    {
+        return uim;
     }
 
 }

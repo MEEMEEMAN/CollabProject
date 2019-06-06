@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Equippable))]
+[CustomEditor(typeof(Equippable), true)]
 public class EquippableInspector : Editor
 {
     Equippable comp;
@@ -21,8 +21,9 @@ public class EquippableInspector : Editor
 
     void Draw()
     {
-        if(GUILayout.Button("Write offset data"))
+        if(GUILayout.Button("Write hand offset data"))
         {
+            Undo.RecordObject(comp, "Undo Write Offset");
             Write();
         }
     }

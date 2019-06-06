@@ -83,6 +83,7 @@ public class ItemBuilderEditor : EditorWindow
 
         //WriteJson(output, outputPath);
         CustomTextService.WriteJsonToDirectory(output, outputPath, "itempaths");
+        Debug.Log("[ITEM DB]: Build is a success.");
         AssetDatabase.Refresh();
     }
 

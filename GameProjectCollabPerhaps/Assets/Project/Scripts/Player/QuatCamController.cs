@@ -44,8 +44,17 @@ public class QuatCamController : MonoBehaviour
 
     private void LateUpdate()
     {
+        ManageRecoil();
         CalculateRotation();
-        
+    }
+
+    void ManageRecoil()
+    {
+        float subtraction = Mathf.Lerp(recoilBalance, 0,10f * Time.deltaTime);
+        recoilBalance -= subtraction;
+
+        if(recoilBalance > 0.01f)
+        m_Pitch -= subtraction;
     }
 
     void CalculateRotation()
@@ -77,6 +86,12 @@ public class QuatCamController : MonoBehaviour
             pitchTransform.localRotation = pitchRot;
         }
 
+    }
+
+    float recoilBalance = 0f;
+    public void Recoil(float strength)
+    {
+        recoilBalance = strength;
     }
 
     public Vector3 GetCamEuler()

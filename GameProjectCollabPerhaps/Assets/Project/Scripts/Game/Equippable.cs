@@ -16,16 +16,23 @@ public enum EquipLayer
     FISTS = 3, PISTOL, RIFLE,
 }
 
+[System.Serializable]
+public class EquipSetup
+{
+    public Animator animator;
+    public AnimatorOverrideController playermodelOverrideAnims;
+    public EquipLayer animationLayer;
+}
+
 /// <summary>
 /// All equippable items eg Guns and clothes derive from this class.
 /// </summary>
 public class Equippable : ItemBase
 {
-    [HideInInspector]public bool equipped = false;
-    public RuntimeAnimatorController animController;
+    [Header("Equippable Setup")]
+    public EquipSetup equipSetup;
+
     public OffsetData offsetData;
-    public AnimatorOverrideController playermodelOverrideAnims;
-    public EquipLayer equipmentLayer;
 
     /// <summary>
     /// Fetch equippable reference from the database. ONLY REFERENCE, NO INSTANTIATION

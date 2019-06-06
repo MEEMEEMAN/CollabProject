@@ -1,0 +1,1 @@
+﻿public enum PB_EraseDetectionType { Collision, Distance}

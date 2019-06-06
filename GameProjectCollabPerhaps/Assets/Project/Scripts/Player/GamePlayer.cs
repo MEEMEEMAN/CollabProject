@@ -20,49 +20,6 @@ public class ActionQuery
     public int HorizontalMovement = -1;
 }
 
-[System.Serializable]
-public class PlayerInventory
-{
-    GamePlayer boundPlayer;
-    HandSocket boundSocket;
-    public Equippable currentlyEquipped;
-
-   public PlayerInventory(GamePlayer player, HandSocket value)
-   {
-        boundPlayer = player;
-        boundSocket = value;
-   }
-
-   public bool MoveToHands(Equippable equipment)
-   {
-        if(currentlyEquipped == null)
-        {
-            currentlyEquipped = equipment;
-            EquippedToHand();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-   }
-
-   void EquippedToHand()
-   {
-        currentlyEquipped.transform.SetParent(boundSocket.getTransform());
-
-        currentlyEquipped.transform.localPosition = currentlyEquipped.offsetData.localPosition;
-        currentlyEquipped.transform.localRotation = currentlyEquipped.offsetData.localRotation;
-        currentlyEquipped.transform.localScale = currentlyEquipped.offsetData.localScale;
-        if(currentlyEquipped.colliders != null)
-        {
-            currentlyEquipped.colliders.gameObject.SetActive(false);
-            currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
-        }
-        boundPlayer.SetEquipLayer(currentlyEquipped.equipmentLayer);
-    }
-}
-
 public class GamePlayer : MonoBehaviour
 {
     public ActionQuery query;
@@ -95,12 +52,16 @@ public class GamePlayer : MonoBehaviour
         {
             cam = pmc.playerCam;
         }
-        inventory = new PlayerInventory(this, pmc.rightHand);
+        inventory = new PlayerInventory(this, pmc.rightHand);        
+    }
 
-        //ItemBase item = ItemBase.GetItem("CZ").Create();
-        //inventory.MoveToHands(item as Equippable);
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+            inventory.MoveToHands(ItemBase.GetItem("CZ").Create() as Equippable);
 
-        
+        if (Input.GetKeyDown(KeyCode.E))
+            inventory.Dequip();
     }
     
     public PlayerInventory getInventory()
