@@ -5,15 +5,15 @@ using UnityEngine;
 /// <summary>
 /// Custom input manager
 /// </summary>
-public class CustomInputManager
+public static class CustomInputManager
 {
-    public bool enabled = true;
+    public static bool enabled = true;
 
     /// <summary>
     /// Get this frame's mouse movement vector
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetMouseVector()
+    public static Vector2 GetMouseVector()
     {
         if (!enabled)
             return Vector2.zero;
@@ -29,7 +29,7 @@ public class CustomInputManager
     /// </summary>
     /// <param name="mouseButton"></param>
     /// <returns></returns>
-    public bool GetMouseTap(int mouseButton)
+    public static bool GetMouseTap(int mouseButton)
     {
         if (!enabled)
             return false;
@@ -45,7 +45,7 @@ public class CustomInputManager
     /// </summary>
     /// <param name="mouseButton"></param>
     /// <returns></returns>
-    public bool GetMouseHold(int mouseButton)
+    public static bool GetMouseHold(int mouseButton)
     {
         if (!enabled)
             return false;
@@ -61,7 +61,7 @@ public class CustomInputManager
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public bool GetKeyTap(KeyCode key)
+    public static bool GetKeyTap(KeyCode key)
     {
         if (!enabled)
             return false;
@@ -78,7 +78,7 @@ public class CustomInputManager
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public bool GetKeyHold(KeyCode key)
+    public static bool GetKeyHold(KeyCode key)
     {
         if (!enabled)
             return false;
@@ -94,7 +94,7 @@ public class CustomInputManager
     /// returns the W,A,S,D input as a vector. NOT NORMALIZED
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetWASDVector()
+    public static Vector2 GetWASDVector()
     {
         if (!enabled)
             return Vector2.zero;

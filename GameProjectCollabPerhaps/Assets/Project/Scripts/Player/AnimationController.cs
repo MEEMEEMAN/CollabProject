@@ -59,11 +59,6 @@ public class AnimationController : MonoBehaviour
     public Transform rightSocketTransform;
     [HideInInspector]public HandSocket rightHand;
     public EquipLayer currentEquipLayer = EquipLayer.FISTS;
-    [Header("Bones")]
-    public Transform armPivot_R;
-    public Transform armPivot_L;
-    Vector3 armPivotStartR;
-    Vector3 armPivotStartL;
 
     Equippable currentlyEquipped;
     bool isEquipped;
@@ -73,21 +68,11 @@ public class AnimationController : MonoBehaviour
     float blendLerp = 10f;
     float animLerpFactor = 5f;
     Vector2 camEuler;
-    CustomInputManager input = new CustomInputManager();
 
     void Awake()
     {
         rightHand = new HandSocket(rightSocketTransform);
         currentEquipLayer = EquipLayer.FISTS;
-        if(armPivot_R != null)
-        {
-            armPivotStartR = armPivot_R.localEulerAngles;
-        }
-
-        if(armPivot_L)
-        {
-            armPivotStartL = armPivot_L.localEulerAngles;
-        }
     }
 
     private void Start()
@@ -132,7 +117,6 @@ public class AnimationController : MonoBehaviour
         isEquipped = GetEquipped();
         StanceManage();
         AnimationSwitch();
-        ArmPivotManage();
     }
 
     ActionQuery.Stance currentStance;
@@ -142,7 +126,7 @@ public class AnimationController : MonoBehaviour
     {
         transform.localEulerAngles = new Vector3(0f, playerCam.GetCamEuler().y, 0f);
         float lerpFactor = animLerpFactor * Time.deltaTime;
-        float pitch = playerCam.GetCamEuler().x / 360;
+        float pitch = playerCam.getPitch();
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -257,12 +241,6 @@ public class AnimationController : MonoBehaviour
         
     }
 
-    public float handLerp = 10f;
-    void ArmPivotManage()
-    {
-        armPivot_R.localEulerAngles = Vector3.Lerp(armPivot_R.localEulerAngles, armPivotStartR, handLerp *Time.deltaTime);
-        armPivot_L.localEulerAngles = Vector3.Lerp(armPivot_L.localEulerAngles, armPivotStartL, handLerp * Time.deltaTime);
-    }
 
     void Shoot()
     {
@@ -270,7 +248,7 @@ public class AnimationController : MonoBehaviour
             return;
 
         WeaponBase wpnBase = currentlyEquipped as WeaponBase;
-        if(Input.GetMouseButtonDown(0))
+        if(CustomInputManager.GetMouseTap(0))
         {
             wpnBase.Shoot();
             float recoil = Random.Range(7.5f, 10f);
@@ -284,7 +262,7 @@ public class AnimationController : MonoBehaviour
         if (currentStance != ActionQuery.Stance.OFFENSIVE)
             return;
 
-        if(Input.GetMouseButtonDown(0))
+        if(CustomInputManager.GetMouseTap(0))
         { 
             if (fist == 0)
             {

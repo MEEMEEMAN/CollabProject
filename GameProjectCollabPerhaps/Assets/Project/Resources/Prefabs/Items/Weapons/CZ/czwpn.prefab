@@ -807,7 +807,7 @@ MonoBehaviour:
     playermodelOverrideAnims: {fileID: 0}
     animationLayer: 4
   offsetData:
-    localPosition: {x: 0, y: 0.0067, z: -0.0003}
+    localPosition: {x: -0, y: 0.0036, z: 0}
     localRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
     localScale: {x: 0.14285712, y: 0.14285721, z: 0.14285713}
   setup:

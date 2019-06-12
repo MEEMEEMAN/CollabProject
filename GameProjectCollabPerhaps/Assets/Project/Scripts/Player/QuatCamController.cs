@@ -15,6 +15,8 @@ public class QuatCamController : MonoBehaviour
     /// </summary>
     public Transform pitchTransform;
 
+    public Transform headTransform;
+
     public bool applyPitchRotation = true;
     public bool applyYawRotation = true;
     [HideInInspector] public Camera camComponent;
@@ -24,7 +26,6 @@ public class QuatCamController : MonoBehaviour
     
     float m_Pitch = 0f;
     float m_Yaw = 0f;
-    CustomInputManager m_Input = new CustomInputManager();
 
     private void Start()
     {
@@ -36,30 +37,38 @@ public class QuatCamController : MonoBehaviour
         //c.layerCullDistances = distances;
     }
 
-
+    Vector3 pos = Vector3.zero; 
     public void Update()
     {
         //CalculateRotation();
+        pos = transform.position;
     }
 
+    public float lerpTest = 10f;
     private void LateUpdate()
     {
         ManageRecoil();
         CalculateRotation();
+        //Vector3 lerp = Vector3.Lerp(transform.position, headTransform.position, lerpTest * Time.deltaTime);
+        //transform.position = lerp;
+        float dist = Vector3.Distance(pos, headTransform.position);
+        float blend = Mathf.Lerp(pos.y ,headTransform.transform.position.y, dist + lerpTest * Time.deltaTime);
+        transform.position = new Vector3(headTransform.position.x, blend, headTransform.position.z);
+        transform.rotation = headTransform.rotation;
     }
 
     void ManageRecoil()
     {
         float subtraction = Mathf.Lerp(recoilBalance, 0,10f * Time.deltaTime);
         recoilBalance -= subtraction;
-
+  
         if(recoilBalance > 0.01f)
         m_Pitch -= subtraction;
     }
 
     void CalculateRotation()
     {
-        Vector2 mouseVector = m_Input.GetMouseVector() * Sensitivity;
+        Vector2 mouseVector = CustomInputManager.GetMouseVector() * Sensitivity;
         m_Pitch += -mouseVector.y;
         m_Yaw += mouseVector.x;
 
@@ -97,5 +106,11 @@ public class QuatCamController : MonoBehaviour
     public Vector3 GetCamEuler()
     {
         return new Vector3(m_Pitch, m_Yaw, 0f);
+    }
+
+    public float getPitch()
+    {
+        float val = GetCamEuler().x / 360;
+        return val;
     }
 }

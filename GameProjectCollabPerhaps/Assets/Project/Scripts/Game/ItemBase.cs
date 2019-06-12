@@ -49,7 +49,7 @@ public class ItemBase : MonoBehaviour
     /// <summary>
     /// Function used by the GameManager to initialize the client's item database.
     /// </summary>
-    public static void BuildItemDictionary()
+    public static void LoadItemDictionary()
     {
         ItemPathSerial itemDataCollection = new ItemPathSerial();
         try
@@ -68,7 +68,7 @@ public class ItemBase : MonoBehaviour
             ItemBase itembs = (Resources.Load(item.resourcesPath) as GameObject).GetComponent<ItemBase>(); //as simple as it gets
             ItemDatabase.Add(item.itemIdentifier, itembs);
         }
-        Debug.Log("Item Database was built successfully.");
+        DebugConsole.LogDev(string.Format("Item Database was succesfully loaded with {0} total items.", ItemDatabase.Count));
     }
     
     /// <summary>

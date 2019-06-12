@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 
     GamePlayer gp;
     Animator localAnimator;
-    CustomInputManager m_input = new CustomInputManager();
     Vector3 movementSum = Vector3.zero;
     Rigidbody rb;
     bool m_sprint = false;
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movVector = Vector3.zero;
     void CollectInput()
     {
-        Vector2 container = m_input.GetWASDVector();
+        Vector2 container = CustomInputManager.GetWASDVector();
 
         gp.query.VerticalMovement = (int)container.y;
         gp.query.HorizontalMovement = (int)container.x;
@@ -210,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         if (grounded)
         {
-            if(m_input.GetKeyTap(KeyCode.Space) && jump == false)
+            if(CustomInputManager.GetKeyTap(KeyCode.Space) && jump == false)
             {
                 grounded = false;
                 jumpVelocity = (jumpPeak / jumpTime);

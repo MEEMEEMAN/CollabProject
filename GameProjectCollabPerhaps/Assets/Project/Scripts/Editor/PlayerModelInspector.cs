@@ -43,7 +43,7 @@ void Draw()
             }
             catch
             {
-                GameObject prefab = (GameObject)Resources.Load("AnimRelated/Player/MainPlayerCam");
+                GameObject prefab = (GameObject)Resources.Load("PlayerRelated/Player/MainPlayerCam");
                 Instantiate(prefab, headEnd.transform.position, headEnd.transform.rotation, headEnd.transform);
                 //PrefabUtility.InstantiatePrefab(prefab, headEnd.transform);
                 Debug.Log(string.Format("Instantiated {0} on {1}", prefab.name, headEnd.transform.name));

@@ -33,7 +33,7 @@ public class GamePlayer : MonoBehaviour
 
     void Awake()
     {
-        
+        GameManager.localPlayer = this;
     }
 
     void Start()
@@ -52,7 +52,7 @@ public class GamePlayer : MonoBehaviour
         {
             cam = pmc.playerCam;
         }
-        inventory = new PlayerInventory(this, pmc.rightHand);        
+        inventory = new PlayerInventory(this, pmc.rightHand);
     }
 
     void Update()
