@@ -58,7 +58,7 @@ public class AnimationController : MonoBehaviour
     public QuatCamController playerCam;
     public Transform rightSocketTransform;
     [HideInInspector]public HandSocket rightHand;
-    public EquipLayer currentEquipLayer = EquipLayer.FISTS;
+    public Equippable.WeaponLayer currentEquipLayer = Equippable.WeaponLayer.FISTS;
 
     Equippable currentlyEquipped;
     bool isEquipped;
@@ -72,7 +72,7 @@ public class AnimationController : MonoBehaviour
     void Awake()
     {
         rightHand = new HandSocket(rightSocketTransform);
-        currentEquipLayer = EquipLayer.FISTS;
+        currentEquipLayer = Equippable.WeaponLayer.FISTS;
     }
 
     private void Start()
@@ -199,13 +199,13 @@ public class AnimationController : MonoBehaviour
 
         switch (currentEquipLayer)
         {
-            case EquipLayer.FISTS:
+            case Equippable.WeaponLayer.FISTS:
                 Punch();
                 break;
-            case EquipLayer.PISTOL:
+            case Equippable.WeaponLayer.PISTOL:
                 Shoot();
                 break;
-            case EquipLayer.RIFLE:
+            case Equippable.WeaponLayer.RIFLE:
                 break;
             default:
                 break;
@@ -217,11 +217,11 @@ public class AnimationController : MonoBehaviour
         currentlyEquipped = gp.getInventory().getCurrentlyEquipped();
         if(currentlyEquipped != null)
         {
-            currentEquipLayer = currentlyEquipped.equipSetup.animationLayer;
+            currentEquipLayer = currentlyEquipped.animationType;
             return true;
         }
 
-        currentEquipLayer = EquipLayer.FISTS;
+        currentEquipLayer = Equippable.WeaponLayer.FISTS;
         return false;
     }
 

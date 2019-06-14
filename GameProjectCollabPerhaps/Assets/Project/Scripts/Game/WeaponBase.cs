@@ -18,7 +18,7 @@ public class WeaponSetup
 /// <summary>
 /// Base class for any weapon in this game.
 /// </summary>
-public class WeaponBase : Equippable, IFirearm
+public class WeaponBase : Equippable, IWeapon
 {
     [Header("Weapon Setup")]
     public WeaponSetup setup;
@@ -27,7 +27,7 @@ public class WeaponBase : Equippable, IFirearm
 
     public virtual void Shoot()
     {
-        equipSetup.animator.SetTrigger("shoot");
+        GetAnimator().SetTrigger("shoot");
     }
 
     public virtual void Reload()

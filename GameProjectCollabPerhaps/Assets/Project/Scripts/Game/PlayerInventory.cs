@@ -5,22 +5,17 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInventory
 {
+    [SerializeField]List<ItemBase> inventory;
     GamePlayer boundPlayer;
     HandSocket boundSocket;
     public Equippable currentlyEquipped;
     public const int inventorySize = 10;
-    InventorySlot[] inventory;
-    
-    struct InventorySlot
-    {
-        public ItemBase item;
-    }
 
-    public PlayerInventory(GamePlayer player ,HandSocket value)
+    public PlayerInventory(GamePlayer player, HandSocket equippableSocket)
     {
         boundPlayer = player;
-        boundSocket = value;
-        inventory = new InventorySlot[inventorySize];
+        boundSocket = equippableSocket;
+        inventory = new List<ItemBase>();
     }
 
     public bool MoveToHands(Equippable equipment)
@@ -42,9 +37,8 @@ public class PlayerInventory
     {
         currentlyEquipped.transform.SetParent(boundSocket.getTransform());
 
-        currentlyEquipped.transform.localPosition = currentlyEquipped.offsetData.localPosition;
-        currentlyEquipped.transform.localRotation = currentlyEquipped.offsetData.localRotation;
-        currentlyEquipped.transform.localScale = currentlyEquipped.offsetData.localScale;
+        currentlyEquipped.ApplyOffsets();
+
         if (currentlyEquipped.colliders != null)
         {
             currentlyEquipped.colliders.gameObject.SetActive(false);
@@ -64,5 +58,35 @@ public class PlayerInventory
     public Equippable getCurrentlyEquipped()
     {
         return currentlyEquipped;
+    }
+
+    public bool AddToInventory(ItemBase item)
+    {
+        if(inventory.Count < 20)
+        {
+            inventory.Add(item);
+            return true;
+        }
+        return false;
+    }
+
+    public bool RemoveItem(ItemBase item)
+    {
+        return inventory.Remove(item);
+    }
+
+    public List<ItemBase> GetItemInventory()
+    {
+        return inventory;
+    }
+
+    public bool RemoveLastItem()
+    {
+        if(inventory.Count > 0)
+        {
+            inventory.RemoveAt(inventory.Count -1);
+            return true;
+        }
+        return false;
     }
 }

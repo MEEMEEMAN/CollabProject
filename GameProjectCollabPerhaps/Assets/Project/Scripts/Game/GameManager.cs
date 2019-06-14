@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public static GamePlayer localPlayer;
     [SerializeField] UIManager uim;
     UIMODE currentUI = UIMODE.PLAY;
-    public Utillity util;
+    public SettingsManager util;
 
     void Awake()
     {
@@ -40,8 +40,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        util = GetComponent<Utillity>();
+        util = GetComponent<SettingsManager>();
         uim.DisableConsole();
+        uim.DisableInventory();
     }
 
     void Update()
@@ -65,25 +66,41 @@ public class GameManager : MonoBehaviour
             else
                 currentUI = UIMODE.PLAY;
         }
+        else if(Input.GetKeyDown(KeyCode.I))
+        {
+            if(currentUI == UIMODE.PLAY)
+            {
+                currentUI = UIMODE.MENU;
+            }
+            else
+            {
+                currentUI = UIMODE.PLAY;
+            }
+        }
 
 
-        if(lastUI != currentUI)
+        if(lastUI != currentUI) //Functions are runned once
         {
             lastUI = currentUI;
+
+            uim.DisableConsole();
+            uim.DisableInventory();
+            util.lockCursor = false;
+            CustomInputManager.enabled = true;
 
             switch (currentUI)
             {
                 case UIMODE.PLAY:
-                    CustomInputManager.enabled = true;
                     uim.DisableConsole();
                     util.lockCursor = true;
                     break;
                 case UIMODE.MENU:
+                    uim.EnableInventory();
+                    CustomInputManager.enabled = false;
                     break;
                 case UIMODE.CONSOLE:
                     CustomInputManager.enabled = false;
                     uim.EnableConsole();
-                    util.lockCursor = false;
                     break;
                 default:
                     break;
@@ -92,4 +109,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GamePlayer getLocalPlayer()
+    {
+        return localPlayer;
+    }
 }

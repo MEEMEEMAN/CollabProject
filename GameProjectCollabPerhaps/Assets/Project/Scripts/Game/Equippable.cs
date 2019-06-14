@@ -10,49 +10,31 @@ public struct OffsetData
     public Vector3 localScale;
 }
 
-[System.Serializable]
-public enum EquipLayer
-{
-    FISTS = 3, PISTOL, RIFLE,
-}
-
-[System.Serializable]
-public class EquipSetup
-{
-    public Animator animator;
-    public AnimatorOverrideController playermodelOverrideAnims;
-    public EquipLayer animationLayer;
-}
-
 /// <summary>
-/// All equippable items eg Guns and clothes derive from this class.
+/// All items that can be worn or used by the hands of the player derive from this class.
 /// </summary>
 public class Equippable : ItemBase
 {
-    [Header("Equippable Setup")]
-    public EquipSetup equipSetup;
-
+    public WeaponLayer animationType;
     public OffsetData offsetData;
 
-    /// <summary>
-    /// Fetch equippable reference from the database. ONLY REFERENCE, NO INSTANTIATION
-    /// </summary>
-    /// <param name="itemName"></param>
-    /// <returns></returns>
-    public static Equippable GetEquip(string itemName)
+    public enum WeaponLayer
     {
-        Equippable equip;
-        try
-        {
-            equip = GetItem(itemName) as Equippable;
-        }
-        catch
-        {
-            equip = null;
-        }
-        return equip;
+        FISTS = 3, PISTOL, RIFLE
     }
-
     
+   /// <summary>
+   /// Applies OffsetData on the equippable item.
+   /// </summary>
+   public void ApplyOffsets()
+   {
+        transform.localPosition = offsetData.localPosition;
+        transform.localRotation = offsetData.localRotation;
+        transform.localScale = offsetData.localScale;
+   }
 
+   public Animator GetAnimator()
+   {
+        return transform.GetComponentInChildren<Animator>();
+   }
 }

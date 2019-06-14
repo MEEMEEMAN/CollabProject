@@ -121,7 +121,7 @@ public class ItemBuilderEditor : EditorWindow
                 if (itembs != null)
                 {
                     ItemBase.ItemPath pc = new ItemBase.ItemPath();
-                    pc.itemIdentifier = itembs.identifierName;
+                    pc.itemIdentifier = itembs.GetIdentifier();
                     pc.resourcesPath = localpath;
                     PathList.Add(pc);
                     items.Add(new DisplayHolder(pc.itemIdentifier, itembs));

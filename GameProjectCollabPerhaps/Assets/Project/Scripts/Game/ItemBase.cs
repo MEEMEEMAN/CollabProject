@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ItemImportData
@@ -18,15 +18,11 @@ public class ItemBase : MonoBehaviour
     /// <summary>
     /// All Items have an ID name. used for getting the said item out of the database.
     /// </summary>
-    public string identifierName;
+    [SerializeField] string identifierName;
 
-    /// <summary>
-    /// If no creation coordinates are assigned or the item is created inside of the player's inventory, the object is put into sleep state.
-    /// It's gameobject is disabled.
-    /// </summary>
-    [SerializeField]bool sleepState = true;
     bool created = false;
     public Transform colliders;
+    public Sprite itemImage;
 
     [System.Serializable]
     public struct ItemPath
@@ -97,6 +93,11 @@ public class ItemBase : MonoBehaviour
 
         return itemInstance;
     }
+    
+    public string GetIdentifier()
+    {
+        return identifierName;
+    }
 
     public ItemBase Create()
     {
@@ -124,5 +125,20 @@ public class ItemBase : MonoBehaviour
     public void DestroyItem()
     {
         Destroy(gameObject);
+    }
+
+    public void Sleep()
+    {
+        transform.root.gameObject.SetActive(false);
+    }
+    
+    public void WakeUp()
+    {
+        transform.root.gameObject.SetActive(true);
+    }
+
+    public bool isSleeping()
+    {
+        return transform.root.gameObject.activeInHierarchy;
     }
 }

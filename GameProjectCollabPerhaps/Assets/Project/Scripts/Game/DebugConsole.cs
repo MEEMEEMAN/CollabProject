@@ -9,6 +9,7 @@ public abstract class ConsoleCommand
 {
     public abstract string command { get; protected set; }
     public virtual string description { get; protected set; } = "Lorem blank ipsum description.";
+    public virtual int argumentCount { get; protected set; } = 0;
 
     public void AddCommandToConsole()
     {

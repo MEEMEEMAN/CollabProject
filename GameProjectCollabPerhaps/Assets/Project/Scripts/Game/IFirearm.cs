@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IFirearm
+public interface IWeapon
 {
      void Shoot();
      void Reload();

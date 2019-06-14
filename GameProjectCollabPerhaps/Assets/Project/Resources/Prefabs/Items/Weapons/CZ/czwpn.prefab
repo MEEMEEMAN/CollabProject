@@ -800,12 +800,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifierName: CZ
-  sleepState: 1
   colliders: {fileID: 4199951527754906787}
-  equipSetup:
-    animator: {fileID: 6436276200775106886}
-    playermodelOverrideAnims: {fileID: 0}
-    animationLayer: 4
+  itemImage: {fileID: 0}
+  animationType: 4
   offsetData:
     localPosition: {x: -0, y: 0.0036, z: 0}
     localRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}

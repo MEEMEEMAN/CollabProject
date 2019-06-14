@@ -57,11 +57,21 @@ public class GamePlayer : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            inventory.AddToInventory(ItemBase.GetItem("CZ"));
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            inventory.RemoveLastItem();
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
             inventory.MoveToHands(ItemBase.GetItem("CZ").Create() as Equippable);
 
         if (Input.GetKeyDown(KeyCode.E))
             inventory.Dequip();
+            */
     }
     
     public PlayerInventory getInventory()
@@ -89,7 +99,7 @@ public class GamePlayer : MonoBehaviour
         return pmc.rightHand;
     }
 
-    public void SetEquipLayer(EquipLayer layer)
+    public void SetEquipLayer(Equippable.WeaponLayer layer)
     {
         pmc.currentEquipLayer = layer;
     }
