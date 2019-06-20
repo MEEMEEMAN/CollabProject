@@ -18,55 +18,37 @@ public class ItemBase : MonoBehaviour
     /// <summary>
     /// All Items have an ID name. used for getting the said item out of the database.
     /// </summary>
-    [SerializeField] string identifierName;
+    [SerializeField]string identifierName;
+
+    /// <summary>
+    // The player that posseses this item, null if it's just laying around.
+    /// </summary>
+    [SerializeField]protected GamePlayer Owner;
 
     bool created = false;
     public Transform colliders;
-    public Sprite itemImage;
+    public Sprite InventoryImage;
 
-    [System.Serializable]
-    public struct ItemPath
+    public void SetOwner(GamePlayer player)
     {
-        public string itemIdentifier;
-        public string resourcesPath;
+        Owner = player;
     }
 
-    [System.Serializable]
-    public struct ItemPathSerial
+    public GamePlayer GetOnwer()
     {
-        public ItemPath[] data;
+        return Owner;
     }
 
     /// <summary>
-    /// Main item database.
+    /// Get and instantiate the requested item.
     /// </summary>
-    public static Dictionary<string, ItemBase> ItemDatabase = new Dictionary<string, ItemBase>();
-
-    /// <summary>
-    /// Function used by the GameManager to initialize the client's item database.
-    /// </summary>
-    public static void LoadItemDictionary()
+    /// <param name="identifier"></param>
+    /// <returns></returns>
+    public static ItemBase Create(string identifier)
     {
-        ItemPathSerial itemDataCollection = new ItemPathSerial();
-        try
-        {
-            string itemPathJson = CustomTextService.ReadJsonFromResources("JsonData/ItemPathData/itempaths"); //Take all of the item's filepath json file and convert to string
-            itemDataCollection = CustomTextService.DeSerializeJson<ItemPathSerial>(itemPathJson); //DeSerialize the json
-        }
-        catch
-        {
-            Debug.LogError("File doesnt exist?");
-        }
-
-        ItemDatabase = new Dictionary<string, ItemBase>(); // Initialize the ItemDatabase Dictionary
-        foreach (ItemPath item in itemDataCollection.data)
-        {
-            ItemBase itembs = (Resources.Load(item.resourcesPath) as GameObject).GetComponent<ItemBase>(); //as simple as it gets
-            ItemDatabase.Add(item.itemIdentifier, itembs);
-        }
-        DebugConsole.LogDev(string.Format("Item Database was succesfully loaded with {0} total items.", ItemDatabase.Count));
+        return ItemDatabase.Fetch(identifier).Create();
     }
-    
+
     /// <summary>
     /// Fetch item reference from the database. ONLY REFERENCE, NO INSTANTIATION
     /// </summary>
@@ -74,9 +56,7 @@ public class ItemBase : MonoBehaviour
     /// <returns></returns>
     public static ItemBase GetItem(string itemName)
     {
-        ItemBase item = null;
-        ItemDatabase.TryGetValue(itemName, out item);
-        return item;
+        return ItemDatabase.Fetch(itemName);
     }
 
     /// <summary>
@@ -85,6 +65,9 @@ public class ItemBase : MonoBehaviour
     /// <returns></returns>
     ItemBase InstantiateItem()
     {
+        if (created)
+            return this;
+
         GameObject instance = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
         ItemBase itemInstance = instance.GetComponent<ItemBase>();
         itemInstance.created = true;
@@ -93,7 +76,7 @@ public class ItemBase : MonoBehaviour
 
         return itemInstance;
     }
-    
+
     public string GetIdentifier()
     {
         return identifierName;
@@ -104,6 +87,11 @@ public class ItemBase : MonoBehaviour
         return InstantiateItem();
     }
 
+    public virtual void ApplySockets()
+    {
+        transform.SetParent(Owner.GetInventory().getItemParent());
+    }
+
     public ItemBase Create(Vector3 pos)
     {
         ItemBase item = InstantiateItem();
@@ -111,34 +99,33 @@ public class ItemBase : MonoBehaviour
         return item;
     }
 
-    public static List<string> GetKeys()
-    {
-        List<string> keyList = new List<string>(ItemDatabase.Keys);
-        return keyList;
-    }
-
     public bool isCreated()
     {
         return created;
     }
-    
+
     public void DestroyItem()
     {
         Destroy(gameObject);
     }
 
-    public void Sleep()
+    public virtual void Sleep()
     {
-        transform.root.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     
-    public void WakeUp()
+    public virtual void WakeUp()
     {
-        transform.root.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public bool isSleeping()
     {
-        return transform.root.gameObject.activeInHierarchy;
+        return transform.gameObject.activeInHierarchy;
+    }
+
+    public virtual void OnAddedToInventory()
+    {
+        transform.position = Owner.transform.position;
     }
 }

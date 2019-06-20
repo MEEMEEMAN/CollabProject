@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager instance;
     public static DebugConsole console;
-    public static GamePlayer localPlayer;
+    [SerializeField] GamePlayer localPlayer;
     [SerializeField] UIManager uim;
     UIMODE currentUI = UIMODE.PLAY;
     public SettingsManager util;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             console = GetComponentInChildren<DebugConsole>();
-            ItemBase.LoadItemDictionary();
+            ItemDatabase.InitializeDatabase();
             QualitySettings.vSyncCount = 1;
         }
         else
@@ -109,8 +109,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetLocalPlayer(GamePlayer player)
+    {
+        localPlayer = player;
+        GetInventoryUI().SetOwner(player);
+    }
+
+
     public GamePlayer getLocalPlayer()
     {
         return localPlayer;
+    }
+
+    public InventoryUI GetInventoryUI()
+    {
+        return GetComponentInChildren<InventoryUI>();
     }
 }

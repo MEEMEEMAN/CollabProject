@@ -46,7 +46,7 @@ namespace ConsoleCommands
 
         public override void RunCommand()
         {
-            List<string> keys = new List<string>(ItemBase.ItemDatabase.Keys);
+            List<string> keys = new List<string>(ItemDatabase.GetExistingIdentifiers());
             string[] keyarray = keys.ToArray();
             DebugConsole.Log("The items are as follows:");
             for (int i = 0; i < keyarray.Length; i++)

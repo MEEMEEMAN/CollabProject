@@ -7,24 +7,36 @@ using UnityEditor;
 public class EquippableInspector : Editor
 {
     Equippable comp;
+    bool cloth = false;
 
     void OnEnable()
     {
         comp = (Equippable)target;
+        if(comp is Clothing)
+        {
+            cloth = true;
+        }
+        else
+        {
+            cloth = false;
+        }
     }
 
     public override void OnInspectorGUI()
     {
-        Draw();
+        DrawItem();
         DrawDefaultInspector();
     }
 
-    void Draw()
+    void DrawItem()
     {
-        if(GUILayout.Button("Write hand offset data"))
+        if(!cloth)
         {
-            Undo.RecordObject(comp, "Undo Write Offset");
-            Write();
+            if (GUILayout.Button("Write offset data"))
+            {
+                Undo.RecordObject(comp, "Undo Write Offset");
+                Write();
+            }
         }
     }
 

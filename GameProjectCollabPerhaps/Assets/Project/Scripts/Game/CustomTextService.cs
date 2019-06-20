@@ -40,7 +40,7 @@ public static class CustomTextService
     /// <param name="path"></param>
     public static void WriteJsonToDirectory(string data,string path, string filename)
     {
-        using (FileStream fs = new FileStream(path + "/"+filename+".json", FileMode.OpenOrCreate))
+        using (FileStream fs = new FileStream(path + "/"+filename+".json", FileMode.Truncate))
         {
             using (StreamWriter writer = new StreamWriter(fs))
             {

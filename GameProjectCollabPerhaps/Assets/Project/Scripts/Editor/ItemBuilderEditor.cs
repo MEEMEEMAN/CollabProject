@@ -74,23 +74,23 @@ public class ItemBuilderEditor : EditorWindow
 
     void Serialize(string SearchingStartDirectory)
     {
-        ItemBase.ItemPath[] foundItemPaths = findItemPaths(SearchingStartDirectory);
-        
-        ItemBase.ItemPathSerial ips = new ItemBase.ItemPathSerial();
+        ItemDatabase.ItemPath[] foundItemPaths = findItemPaths(SearchingStartDirectory);
+
+        ItemDatabase.ItemPathSerial ips = new ItemDatabase.ItemPathSerial();
         ips.data = foundItemPaths;
 
         string output = CustomTextService.SerializeJson(ips);
 
         //WriteJson(output, outputPath);
         CustomTextService.WriteJsonToDirectory(output, outputPath, "itempaths");
-        Debug.Log("[ITEM DB]: Build is a success.");
+        Debug.Log(string.Format("[ITEM DB]: Build is a success. a total of {0} item paths found.",foundItemPaths.Length));
         AssetDatabase.Refresh();
     }
 
     List<DisplayHolder> items = new List<DisplayHolder>();
-    ItemBase.ItemPath[] findItemPaths(string path)
+    ItemDatabase.ItemPath[] findItemPaths(string path)
     {
-        List<ItemBase.ItemPath> foundPaths = new List<ItemBase.ItemPath>();
+        List<ItemDatabase.ItemPath> foundPaths = new List<ItemDatabase.ItemPath>();
         items.Clear();
 
         findPathsRecursively(path, ref foundPaths);
@@ -100,7 +100,7 @@ public class ItemBuilderEditor : EditorWindow
         return foundPaths.ToArray();
     }
 
-    void findPathsRecursively(string path, ref List<ItemBase.ItemPath> PathList)
+    void findPathsRecursively(string path, ref List<ItemDatabase.ItemPath> PathList)
     {
         string[] directories = Directory.GetFileSystemEntries(path);
 
@@ -120,7 +120,7 @@ public class ItemBuilderEditor : EditorWindow
                 ItemBase itembs = Loaded.GetComponent<ItemBase>();
                 if (itembs != null)
                 {
-                    ItemBase.ItemPath pc = new ItemBase.ItemPath();
+                    ItemDatabase.ItemPath pc = new ItemDatabase.ItemPath();
                     pc.itemIdentifier = itembs.GetIdentifier();
                     pc.resourcesPath = localpath;
                     PathList.Add(pc);

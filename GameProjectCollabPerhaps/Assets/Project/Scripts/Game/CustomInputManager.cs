@@ -104,4 +104,10 @@ public static class CustomInputManager
         axis.y = Input.GetAxisRaw("Vertical");
         return axis;
     }
+
+    
+
 }
+
+
+

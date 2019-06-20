@@ -15,26 +15,91 @@ public struct OffsetData
 /// </summary>
 public class Equippable : ItemBase
 {
+    [Header("Types")]
+    public EquippableType EquipmentType;
     public WeaponLayer animationType;
+    [Header("Data")]
     public OffsetData offsetData;
+    public AnimatorOverrideController AnimationsToOverride;
+    [Header("Components")]
+    [SerializeField]protected Animator localAnimator;
 
     public enum WeaponLayer
     {
-        FISTS = 3, PISTOL, RIFLE
+        NONE = -1, FISTS = 3, HANDHELD = 4
     }
     
-   /// <summary>
-   /// Applies OffsetData on the equippable item.
-   /// </summary>
-   public void ApplyOffsets()
-   {
-        transform.localPosition = offsetData.localPosition;
-        transform.localRotation = offsetData.localRotation;
-        transform.localScale = offsetData.localScale;
-   }
+    public enum EquippableType
+    {
+        HAND, HEAD, TORSO, LEGS, SHOES
+    }
 
-   public Animator GetAnimator()
+    void OnValidate()
+    {
+        try
+        {
+            if(GetAnimator() != null)
+            localAnimator = GetAnimator();
+        }
+        catch
+        {
+
+        }
+    }
+
+    public Animator GetAnimator()
    {
         return transform.GetComponentInChildren<Animator>();
    }
+
+   public virtual void OnEquip()
+   {
+        WakeUp();
+   }
+
+   public virtual void OnDequip()
+   {
+        Sleep();
+   }
+
+    public override void ApplySockets()
+    {
+        transform.parent = Owner.GetInventory().GetHandSocketTransform();
+    }
+
+    public override void OnAddedToInventory()
+    {
+        ApplySockets();
+        ApplyOffsets();
+    }
+
+    public virtual void AnimatorUpdate(Animator CharacterModelAnimator)
+    {
+        
+    }
+
+    public virtual void OffensiveStanceUpdate(Animator CharacterModelAnimator)
+    {
+
+    }
+
+    public virtual void ChillStanceUpdate(Animator CharacterModelAnimator)
+    {
+
+    }
+
+    /// <summary>
+    /// Applies OffsetData on the equippable item.
+    /// </summary>
+    public virtual void ApplyOffsets()
+    {
+        transform.localPosition = offsetData.localPosition;
+        transform.localRotation = offsetData.localRotation;
+        transform.localScale = offsetData.localScale;
+    }
+
+    public virtual IEnumerator AnimatorResetWait(float time = 0.05f, Animator characterModelAnimator = null)
+    {
+        yield return new WaitForSeconds(time);
+    }
 }

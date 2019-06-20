@@ -11,109 +11,89 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
-  - m_Path: Armature
-    m_Weight: 0
-  - m_Path: Armature/HIP
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_IK_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_IK_L/LEG_IK_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_POLL_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_POLL_L/LEG_POLL_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_UPPER_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/FOOT_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/FOOT_L/FOOT_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_IK_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_IK_R/LEG_IK_R_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_POLL_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_POLL_R/LEG_POLL_R_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_UPPER_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/FOOT_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/FOOT_R/FOOT_R_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/NECK
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/NECK/HEAD
-    m_Weight: 1
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/NECK/HEAD/HEAD_end
-    m_Weight: 1
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_IK_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_IK_L/ARM_IK_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_POLL_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_POLL_L/ARM_POLL_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L/ARM_LOWER_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L/ARM_LOWER_L/PALM_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L/ARM_LOWER_L/PALM_L/PALM_SOCKET_PIVOT_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L/ARM_LOWER_L/PALM_L/PALM_SOCKET_PIVOT_L/PALM_SOCKET_L
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_L/ARMPIT_L/ARM_UPPER_L/ARM_LOWER_L/PALM_L/PALM_SOCKET_PIVOT_L/PALM_SOCKET_L/PALM_SOCKET_L_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_IK_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_IK_R/ARM_IK_R_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_POLL_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_POLL_R/ARM_POLL_R_end
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R/ARM_LOWER_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R/ARM_LOWER_R/PALM_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R/ARM_LOWER_R/PALM_R/PALM_SOCKET_PIVOT_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R/ARM_LOWER_R/PALM_R/PALM_SOCKET_PIVOT_R/PALM_SOCKET_R
-    m_Weight: 0
-  - m_Path: Armature/HIP/SPINE/UNDERCHEST_LOWER/UNDERCHEST_UPPER/CHEST/SHOULDER_R/ARMPIT_R/ARM_UPPER_R/ARM_LOWER_R/PALM_R/PALM_SOCKET_PIVOT_R/PALM_SOCKET_R/PALM_SOCKET_R_end
-    m_Weight: 0
   - m_Path: Camera
     m_Weight: 0
-  - m_Path: Cube
+  - m_Path: Model_Armature
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_IK_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_IK_L/LEG_IK_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_POLL_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_POLL_L/LEG_POLL_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/LEG_FOOT_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/LEG_FOOT_L/LEG_FOOT_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_IK_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_IK_R/LEG_IK_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_POLL_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_POLL_R/LEG_POLL_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/LEG_FOOT_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/LEG_FOOT_R/LEG_FOOT_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L/ARM_SOCKET_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L/ARM_SOCKET_L/ARM_SOCKET_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R/ARM_SOCKET_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R/ARM_SOCKET_R/ARM_SOCKET_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK/HEAD
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK/HEAD/HEAD_end
+    m_Weight: 1
+  - m_Path: Skin_Mesh
     m_Weight: 0

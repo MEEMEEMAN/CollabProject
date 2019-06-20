@@ -25,7 +25,7 @@ public class WeaponBase : Equippable, IWeapon
     [Header("Weapon Stats")]
     public WeaponStats weaponInfo;
 
-    public virtual void Shoot()
+    public virtual void Attack()
     {
         GetAnimator().SetTrigger("shoot");
     }

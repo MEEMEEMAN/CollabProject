@@ -36,7 +36,8 @@ void Draw()
                 }
                 else
                 {
-                    camTransform.parent = headEnd;
+                    camTransform.parent = comp.transform;
+                    camTransform.GetComponent<QuatCamController>().headTransform = headEnd;
                     camTransform.localPosition = Vector3.zero;
                     camTransform.rotation = headEnd.rotation;
                 }

@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: offensive
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Camera
+    m_Weight: 0
+  - m_Path: Model_Armature
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_IK_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_IK_L/LEG_IK_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_POLL_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_POLL_L/LEG_POLL_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/LEG_FOOT_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_L/LEG_UPPER_L/LEG_LOWER_L/LEG_FOOT_L/LEG_FOOT_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_IK_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_IK_R/LEG_IK_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_POLL_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_POLL_R/LEG_POLL_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/LEG_FOOT_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/HIP_R/LEG_UPPER_R/LEG_LOWER_R/LEG_FOOT_R/LEG_FOOT_R_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L/ARM_SOCKET_L
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_L/ARM_UPPER_L/ARM_LOWER_L/ARM_PALM_L/ARM_SOCKET_PIVOT_L/ARM_SOCKET_L/ARM_SOCKET_L_end
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R
+    m_Weight: 0
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R/ARM_SOCKET_R
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/ARM_SHOULDER_R/ARM_UPPER_R/ARM_LOWER_R/ARM_PALM_R/ARM_SOCKET_PIVOT_R/ARM_SOCKET_R/ARM_SOCKET_R_end
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK/HEAD
+    m_Weight: 1
+  - m_Path: Model_Armature/HIP/SPINE/HELPER_CHEST/CHEST/HELPER_NECK/NECK/HEAD/HEAD_end
+    m_Weight: 1
+  - m_Path: Skin_Mesh
+    m_Weight: 0

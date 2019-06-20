@@ -1,92 +1,191 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
-public class PlayerInventory
+public class InventoryManager
 {
-    [SerializeField]List<ItemBase> inventory;
-    GamePlayer boundPlayer;
-    HandSocket boundSocket;
-    public Equippable currentlyEquipped;
-    public const int inventorySize = 10;
+    GamePlayer m_boundPlayer;
+    HandSocket m_boundSocket;
+    Transform ItemParent;
+    InventoryUI m_invUI;
+    Transform nonEquippableItemParent;
 
-    public PlayerInventory(GamePlayer player, HandSocket equippableSocket)
+    public InventoryManager(GamePlayer player, HandSocket equippableSocket, Transform nonEquippablePoolParent)
     {
-        boundPlayer = player;
-        boundSocket = equippableSocket;
-        inventory = new List<ItemBase>();
+        m_boundPlayer = player;
+        m_boundSocket = equippableSocket;
+        nonEquippableItemParent = nonEquippablePoolParent;
+        Init();
     }
 
-    public bool MoveToHands(Equippable equipment)
+    void Init()
     {
-        if (currentlyEquipped == null)
+        m_invUI = GameManager.instance.GetInventoryUI();
+    }
+
+    public Equippable GetHandEquipped()
+    {
+        return m_invUI.GetEquipmentSlot(Equippable.EquippableType.HAND).Item as Equippable;
+    }
+
+    public bool AddToInventory(ItemBase itembs)
+    {
+        return m_invUI.AddToInventory(itembs);
+    }
+
+    public void RemoveLastItem()
+    {
+        InventorySlot lastEquipped = m_invUI.GetLastEquipped();
+        if(lastEquipped != null)
         {
-            currentlyEquipped = equipment;
-            EquippedToHand();
-            return true;
+            m_invUI.RemoveItem(lastEquipped.Item);
+        }
+    }
+
+    public Transform GetHandSocketTransform()
+    {
+        return m_boundSocket.GetSocketTransform();
+    }
+
+    public Transform getItemParent()
+    {
+        return nonEquippableItemParent;
+    }
+
+    void DropItem(ItemBase itembs)
+    {
+        
+    }
+
+
+    /*
+    void EquipEvent(ItemBase item)
+    {
+        if(item is Equippable)
+        {
+            Equip(item as Equippable);
         }
         else
         {
-            equipment.DestroyItem();
+            Debug.Log(item.GetIdentifier() + " is not euqippable.");
+        }
+    }
+    /*
+
+    public bool Equip(Equippable item)
+    {
+        try
+        {
+            EquipmentSlot neededSlot;
+            equipmentSlots.TryGetValue((int)item.EquipmentType, out neededSlot);
+
+            if (neededSlot.Item != null)
+                return false;
+
+            neededSlot.Item = item;
+            RemoveFromInventory(item);
+            neededSlot.OnLeftClickDequip += DequipEvent;
+            item.OnEquip();
+            //Debug.Log( neededSlot.name+" contains " +neededSlot.Item.GetIdentifier());
+            return true;
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.ToString());
             return false;
         }
     }
 
-    void EquippedToHand()
+    void RemoveFromInventory(ItemBase item)
     {
-        currentlyEquipped.transform.SetParent(boundSocket.getTransform());
-
-        currentlyEquipped.ApplyOffsets();
-
-        if (currentlyEquipped.colliders != null)
-        {
-            currentlyEquipped.colliders.gameObject.SetActive(false);
-            currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        inventorySpace.Remove(item);
+        m_invUI.GetItemSlot(item).Item = null;
     }
 
-    public void Dequip()
+    void DequipEvent(Equippable item)
     {
-        if (currentlyEquipped != null)
-        {
-            currentlyEquipped.DestroyItem();
-            currentlyEquipped = null;
-        }
+        Dequip(item);
     }
 
-    public Equippable getCurrentlyEquipped()
+    public bool Dequip(Equippable item)
     {
-        return currentlyEquipped;
-    }
-
-    public bool AddToInventory(ItemBase item)
-    {
-        if(inventory.Count < 20)
+        if (inventorySpace.Count < InventoryUI.inventorySize)
         {
-            inventory.Add(item);
+            //AddToInventory(item);
+            AddOrDrop(item);
+            EquipmentSlot occupiedSlot;
+            equipmentSlots.TryGetValue((int)item.EquipmentType, out occupiedSlot);
+            occupiedSlot.OnLeftClickDequip -= DequipEvent;
+            occupiedSlot.Item = null;
+            item.OnDequip();
             return true;
         }
         return false;
     }
 
-    public bool RemoveItem(ItemBase item)
+    public bool AddOrDrop(ItemBase item)
     {
-        return inventory.Remove(item);
+        if(!AddToInventory(item))
+        {
+            item.transform.position = m_boundPlayer.transform.root.position;
+            return false;
+        }
+
+        return true;
     }
 
-    public List<ItemBase> GetItemInventory()
+    public bool AddToInventory(ItemBase itembs)
     {
-        return inventory;
-    }
+        if(inventorySpace.Count < InventoryUI.inventorySize)
+        {
+            try
+            {
+                Equippable equip = (Equippable)itembs;
+                if(equip.EquipmentType == Equippable.EquippableType.HAND)
+                {
+                    equip.transform.SetParent(m_boundSocket.GetSocketTransform());
+                }
+                else
+                {
+                    equip.transform.SetParent(m_boundPlayer.getAnimationController().GetClothParent());
+                }
+            }
+            catch
+            {
+                itembs.transform.SetParent(m_boundPlayer.transform);
+            }
 
+            itembs.SetOwner(m_boundPlayer);
+            inventorySpace.Add(itembs);
+
+            InventorySlot freeSlot = m_invUI.GetFreeSlot();
+            if(freeSlot.Item != null)
+            {
+                Debug.LogError("what the fuck?");
+            }
+            freeSlot.Item = itembs;
+
+            itembs.OnAddedToInventory();
+            itembs.Sleep();
+
+            return true;
+        }
+        itembs.SetOwner(null);
+        return false;
+    }
+    
     public bool RemoveLastItem()
     {
-        if(inventory.Count > 0)
+        if(inventorySpace.Count > 0)
         {
-            inventory.RemoveAt(inventory.Count -1);
+            ItemBase itemToRemove = inventorySpace[inventorySpace.Count-1];
+            RemoveFromInventory(itemToRemove);
             return true;
         }
         return false;
     }
+    */
+
 }

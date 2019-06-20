@@ -25,19 +25,21 @@ public class GamePlayer : MonoBehaviour
     public ActionQuery query;
 
     [Header("Inventory")]
-    [SerializeField]PlayerInventory inventory;
+    [SerializeField]InventoryManager inventory;
+    [SerializeField] Transform itemParent;
 
     AnimationController pmc;
     PlayerController pc;
     QuatCamController cam;
 
-    void Awake()
+    void OnValidate()
     {
-        GameManager.localPlayer = this;
+        
     }
 
     void Start()
     {
+        GameManager.instance.SetLocalPlayer(this);
         if (pmc == null)
         {
             pmc = transform.GetComponentInChildren<AnimationController>();
@@ -52,55 +54,45 @@ public class GamePlayer : MonoBehaviour
         {
             cam = pmc.playerCam;
         }
-        inventory = new PlayerInventory(this, pmc.rightHand);
+
+        inventory = new InventoryManager(this, pmc.rightHand, itemParent);
     }
 
+    bool yes = false;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            inventory.AddToInventory(ItemBase.GetItem("CZ"));
+       if(Input.GetKeyDown(KeyCode.Q))
+       {
+        if(yes)
+            inventory.AddToInventory(ItemBase.Create("CZ"));
+            else
+                inventory.AddToInventory(ItemBase.Create("CHOCOLATE"));
+            yes = !yes;
         }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            inventory.RemoveLastItem();
-        }
-        /*
-        if (Input.GetKeyDown(KeyCode.Q))
-            inventory.MoveToHands(ItemBase.GetItem("CZ").Create() as Equippable);
 
-        if (Input.GetKeyDown(KeyCode.E))
-            inventory.Dequip();
-            */
+       if(Input.GetKeyDown(KeyCode.E))
+       {
+            inventory.RemoveLastItem();
+       }
     }
     
-    public PlayerInventory getInventory()
+    public InventoryManager GetInventory()
     {
         return inventory;
     }
 
-    public AnimationController getAnimationController()
+    public AnimationController GetAnimationController()
     {
         return pmc;
     }
 
-    public QuatCamController getCam()
+    public QuatCamController GetCamera()
     {
         return cam;
     }
 
-    public PlayerController getPlayerController()
+    public PlayerController GetPlayerController()
     {
         return pc;
-    }
-
-    public HandSocket getRightHandSocket()
-    {
-        return pmc.rightHand;
-    }
-
-    public void SetEquipLayer(Equippable.WeaponLayer layer)
-    {
-        pmc.currentEquipLayer = layer;
     }
 }

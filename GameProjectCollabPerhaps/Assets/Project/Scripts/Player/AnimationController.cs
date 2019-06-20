@@ -3,7 +3,6 @@
 [System.Serializable]
 public class HandSocket
 {
-    public Transform this[int index] { get { return socketTransform; } set { socketTransform = value; } }
     Transform socketTransform;
     Equippable currentOccupyingItem = null;
     bool occupied = false;
@@ -13,12 +12,7 @@ public class HandSocket
         socketTransform = socket;
     }
 
-    public Transform getSocket()
-    {
-        return socketTransform;
-    }
-
-    public Transform getTransform()
+    public Transform GetSocketTransform()
     {
         return socketTransform;
     }
@@ -57,8 +51,10 @@ public class AnimationController : MonoBehaviour
     public RuntimeAnimatorController animController;
     public QuatCamController playerCam;
     public Transform rightSocketTransform;
+    [SerializeField] Transform clothParent;
     [HideInInspector]public HandSocket rightHand;
     public Equippable.WeaponLayer currentEquipLayer = Equippable.WeaponLayer.FISTS;
+    public SkinnedMeshRenderer skin;
 
     Equippable currentlyEquipped;
     bool isEquipped;
@@ -75,6 +71,24 @@ public class AnimationController : MonoBehaviour
         currentEquipLayer = Equippable.WeaponLayer.FISTS;
     }
 
+    void HandEquipUpdateEvent(Equippable item)
+    {
+        if(item == null)
+        {
+            currentEquipLayer = Equippable.WeaponLayer.FISTS;
+            animator.runtimeAnimatorController = animController;
+            return;
+        }
+
+        if(item.GetOnwer() == gp)
+        {
+            currentEquipLayer = item.animationType;
+            currentlyEquipped = item;
+            if(currentlyEquipped.AnimationsToOverride != null)
+            animator.runtimeAnimatorController = currentlyEquipped.AnimationsToOverride;
+        }
+    }
+
     private void Start()
     {
         if (animator == null)
@@ -86,7 +100,18 @@ public class AnimationController : MonoBehaviour
         if (Playermodel == null)
             Playermodel = transform.GetChild(0).gameObject;
         pc = GetComponent<PlayerController>();
-    }  
+        InventoryUI.EquipEvent += HandEquipUpdateEvent;
+    }
+
+    public Transform GetClothParent()
+    {
+        return clothParent;
+    }
+
+    void OnValidate()
+    {
+        
+    }
 
     Vector2 movement = Vector2.zero;
     void AnimationSwitch()
@@ -111,20 +136,19 @@ public class AnimationController : MonoBehaviour
         animator.SetFloat("strafe", movement.x * pc.GetMovFactor());
     }
 
+
     private void LateUpdate()
     {
-        camEuler = playerCam.GetCamEuler();
-        isEquipped = GetEquipped();
         StanceManage();
         AnimationSwitch();
     }
 
     ActionQuery.Stance currentStance;
     float blend = 0f;
-    Vector3 chestOriginalPose = Vector3.zero;
     void StanceManage()
     {
-        transform.localEulerAngles = new Vector3(0f, playerCam.GetCamEuler().y, 0f);
+        camEuler = playerCam.GetCamEuler();
+        transform.localEulerAngles = new Vector3(0f, camEuler.y, 0f);
         float lerpFactor = animLerpFactor * Time.deltaTime;
         float pitch = playerCam.getPitch();
 
@@ -159,6 +183,10 @@ public class AnimationController : MonoBehaviour
 
         float posBlend = 1f;
         float negBlend = 0f;
+
+        if (currentlyEquipped != null)
+            currentlyEquipped.AnimatorUpdate(animator);
+
         switch (currentStance) //runs every frame of stance
         {
             case ActionQuery.Stance.CHILL:
@@ -196,68 +224,34 @@ public class AnimationController : MonoBehaviour
         }
 
         animator.SetFloat("pitch", pitch);
-
-        switch (currentEquipLayer)
-        {
-            case Equippable.WeaponLayer.FISTS:
-                Punch();
-                break;
-            case Equippable.WeaponLayer.PISTOL:
-                Shoot();
-                break;
-            case Equippable.WeaponLayer.RIFLE:
-                break;
-            default:
-                break;
-        }
     }
 
-    bool GetEquipped()
-    {
-        currentlyEquipped = gp.getInventory().getCurrentlyEquipped();
-        if(currentlyEquipped != null)
-        {
-            currentEquipLayer = currentlyEquipped.animationType;
-            return true;
-        }
-
-        currentEquipLayer = Equippable.WeaponLayer.FISTS;
-        return false;
-    }
-
-    void InitPistol()
-    {
-        WeaponBase wpn = gp.getInventory().getCurrentlyEquipped() as WeaponBase;
-        wpn.BarrelTraceRaycast();
-    }
-    
     void ChillStance()
     {
-        
+        if (currentEquipLayer == Equippable.WeaponLayer.FISTS)
+        {
+            //PunchControls();
+        }
+        else
+        {
+            currentlyEquipped.ChillStanceUpdate(animator);
+        }
     }
 
     void OffensiveStance()
     {
-        
-    }
-
-
-    void Shoot()
-    {
-        if (currentStance != ActionQuery.Stance.OFFENSIVE)
-            return;
-
-        WeaponBase wpnBase = currentlyEquipped as WeaponBase;
-        if(CustomInputManager.GetMouseTap(0))
+        if(currentEquipLayer == Equippable.WeaponLayer.FISTS)
         {
-            wpnBase.Shoot();
-            float recoil = Random.Range(7.5f, 10f);
-            playerCam.Recoil(recoil);
+            PunchControls();
+        }
+        else
+        {
+            currentlyEquipped.OffensiveStanceUpdate(animator);
         }
     }
 
     int fist = 0;
-    void Punch()
+    void PunchControls()
     {
         if (currentStance != ActionQuery.Stance.OFFENSIVE)
             return;
@@ -275,5 +269,10 @@ public class AnimationController : MonoBehaviour
                 animator.SetTrigger("PUNCH_L");
             }
         }
+    }
+
+    public Transform GetPlayermodel()
+    {
+        return Playermodel.transform;
     }
 }
